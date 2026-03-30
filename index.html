@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Pixorange</title>
+
+    <!-- GSAP -->
+    <script src="https://unpkg.com/gsap@3/dist/gsap.min.js"></script>
+    <script src="https://unpkg.com/gsap@3/dist/ScrollTrigger.min.js"></script>
+    <!-- Three.js -->
+    <script src="https://unpkg.com/three@0.158.0/build/three.min.js"></script>
+
+    <script src="./assets/plugins/tailwind/tailwind.js"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class'
+        }
+    </script>
+    <link rel="stylesheet" href="./assets/styles/text.css" />
+    <link rel="stylesheet" href="./assets/styles/main.css" />
+</head>
+
+<body class="bg-white dark:bg-black text-gray-900 dark:text-gray-100 transition-colors duration-300">
+
+    <div class="relative h-[150vh] w-full overflow-hidden">
+        <div id="nav-placeholder"></div>
+        <div class="absolute top-24 z-30 w-full px-5">
+            <span class="flex text-9xl">Where visions</span>
+            <span class="float-right flex text-9xl">are forged.</span>
+        </div>
+        <div class="absolute top-96 z-30 px-5 w-1/2">
+            <p class="text-caption mb-[3.12rem]">scroll down</p>
+            <h2 class="text-h4 md:sticky md:top-[40vh]">Since 2007, Ars Thanea has collaborated with creative visionaries to transform brands into icons. Crafting visually-arresting expressions that are distinctive, innovative and unforgettable.</h2>
+        </div>
+        <div class="video-wrapper">
+            <video id="videoElement" class="absolute inset-0 w-full h-full object-cover object-center" muted autoplay playsinline loop preload="auto">
+                <source src="./assets/media/hero-reel.mp4" type="video/mp4" />
+            </video>
+            <div class="blur-element absolute inset-0 backdrop-blur-xl dark:bg-black/20 bg-white/20"></div>
+        </div>
+
+        <div class="canvas-wrap">
+            <canvas id="videoCanvas" class="absolute inset-0 w-full h-full object-cover object-center"></canvas>
+        </div>
+
+        <div id="clients-wrapper" class="absolute bottom-10 w-full overflow-hidden z-30">
+            <div class="relative flex overflow-hidden">
+                <div class="clients-track flex gap-x-20 whitespace-nowrap">
+                    <span class="client">Nike</span>
+                    <span class="client">Google</span>
+                    <span class="client">Spotify</span>
+                    <span class="client">Adobe</span>
+                    <span class="client">Netflix</span>
+                    <span class="client">BMW</span>
+                    <span class="client">Meta</span>
+                    <span class="client">Sony</span>
+                    <span class="client">Sony</span>
+                    <span class="client">Sony</span>
+                    <span class="client">Sony</span>
+                    <span class="client">Sony</span>
+                    <span class="client">Sony</span>
+                    <span class="client">Sony</span>
+                    <span class="client">Sony</span>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="mx-5 relative z-10" id="featured-landing-wrapper"></div>
+    
+    <script src="./assets/plugins/jquery/jquery-3.7.1.min.js"></script>
+    <script src="./assets/scripts/loadNav.js"></script>
+    <script src="./assets/scripts/theme.js"></script>
+    <script src="./assets/scripts/main.js"></script>
+</body>
+
+</html>
