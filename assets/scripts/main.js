@@ -1,14 +1,22 @@
 // ═══════════════════════════════════════════
 //  VIDEO → CANVAS
-//  Draws the raw (unblurred) video onto the
-//  canvas so the polygon shows a crisp feed
-//  while the background video is CSS-blurred.
 // ═══════════════════════════════════════════
 
 const video  = document.getElementById("videoElement");
 const canvas = document.getElementById("videoCanvas");
 const ctx    = canvas.getContext("2d");
 
+// Crisp canvas — matches screen pixel density
+function resizeCanvas() {
+    const dpr = window.devicePixelRatio || 1;
+    canvas.width  = window.innerWidth  * dpr;
+    canvas.height = window.innerHeight * dpr;
+}
+
+resizeCanvas();
+window.addEventListener("resize", resizeCanvas);
+
+// Override with actual video dimensions once known
 video.addEventListener("loadedmetadata", () => {
     canvas.width  = video.videoWidth;
     canvas.height = video.videoHeight;
@@ -65,37 +73,19 @@ ScrollTrigger.create({
 });
 
 // ── 2. Scroll-driven blur + theme fade ──────────────────────────
-//
-// Splits scroll progress into two phases:
-//
-//   Phase 1  progress 0.0 → 0.6
-//     backdrop-filter blur ramps from 0px → 24px
-//     background stays transparent
-//     → canvas gets progressively blurred out
-//
-//   Phase 2  progress 0.6 → 1.0
-//     blur holds at 24px
-//     background-color fades transparent → theme color (0 → 0.97 alpha)
-//     → page color bleeds in, ready for featured section handoff
-//
-// The featured section has a solid bg at z-index:10 and slides
-// naturally over the fixed layers — no JS needed for that part.
-
 ScrollTrigger.create({
     trigger: ".hero-section",
     start:   "top top",
     end:     "bottom top",
     onUpdate(self) {
-        const p      = self.progress; // 0 → 1
+        const p      = self.progress;
         const isDark = document.documentElement.classList.contains("dark");
 
-        // Phase 1: blur 0 → 24px over first 60% of scroll
-        const blurProgress = Math.min(p / 0.6, 1);
-        const blur = blurProgress * 24;
+        // Phase 1 (0→60%): blur ramps 0 → 24px
+        const blur  = Math.min(p / 0.6, 1) * 24;
 
-        // Phase 2: bg fade over last 40% of scroll
-        const fadeProgress = Math.max((p - 0.6) / 0.4, 0);
-        const alpha = fadeProgress * 0.97;
+        // Phase 2 (60→100%): bg fades transparent → theme color
+        const alpha = Math.max((p - 0.6) / 0.4, 0) * 0.97;
 
         overlay.style.backdropFilter       = `blur(${blur}px)`;
         overlay.style.webkitBackdropFilter = `blur(${blur}px)`;

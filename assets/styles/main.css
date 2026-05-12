@@ -65,6 +65,7 @@
     height: 100%;
     object-fit: cover;
     display: block;
+    image-rendering: crisp-edges;  /* add this */
 }
 
 /* ─────────────────────────────────────────────
@@ -97,7 +98,7 @@
    Nav sits above the overlay
 ───────────────────────────────────────────── */
 #nav-placeholder {
-    position: sticky;
+    position: relative;
     top: 0;
     z-index: 40;
     width: 100%;
